@@ -1,4 +1,5 @@
-FROM ubuntu:latest
+FROM ubuntu:xenial
+ENV DEBIAN_FRONTEND noninteractive
 
 RUN \
   useradd -r -s /bin/false varnishd
