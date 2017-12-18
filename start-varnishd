@@ -4,8 +4,11 @@ ulimit -l 82000
 if [ "${VARNISH_MEMORY}" == "" ]; then
   VARNISH_MEMORY = "1G"
 fi
-varnishd -f /etc/varnish/default.vcl -C -n /tmp
-exec varnishd -j none -F -f /etc/varnish/default.vcl \
+if [ "${VARNISH_CONFIG}" == "" ]; then
+  VARNISH_CONFIG = "/etc/varnish/default.vcl"
+fi
+varnishd -f ${VARNISH_CONFIG} -C -n /tmp
+exec varnishd -j none -F -f ${VARNISH_CONFIG} \
      -s malloc,${VARNISH_MEMORY} -a 0.0.0.0:81 \
      -T 0.0.0.0:6082 \
      -p http_req_hdr_len=16384 -p http_resp_hdr_len=16384 ${VARNISH_DAEMON_OPTS}
