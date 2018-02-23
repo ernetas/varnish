@@ -1,8 +1,7 @@
 FROM ubuntu:xenial
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN \
-  useradd -r -s /bin/false varnishd
+RUN useradd -r -s /bin/false varnishd
 
 ADD build.sh /build.sh
 RUN /build.sh
